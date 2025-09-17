@@ -1,0 +1,34 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+from wordcloud import WordCloud
+
+year_counts = df["year"].value_counts().sort_index()
+plt.figure(figsize=(8,5))
+plt.plot(year_counts.index, year_counts.values, marker="o")
+plt.title("Publications by Year")
+plt.xlabel("Year")
+plt.ylabel("Number of Papers")
+plt.show()
+
+top_journals = df["journal"].value_counts().head(10)
+plt.figure(figsize=(10,5))
+sns.barplot(y=top_journals.index, x=top_journals.values, palette="Blues_d")
+plt.title("Top 10 Journals")
+plt.xlabel("Number of Papers")
+plt.show()
+
+text = " ".join(df["title"].dropna().astype(str))
+wordcloud = WordCloud(width=800, height=400, background_color="white").generate(text)
+plt.figure(figsize=(10,5))
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off")
+plt.title("Most Frequent Words in Titles")
+plt.show()
+
+plt.figure(figsize=(8,5))
+df["source_x"].value_counts().plot(kind="bar")
+plt.title("Distribution of Papers by Source")
+plt.xlabel("Source")
+plt.ylabel("Count")
+plt.xticks(rotation=45)
+plt.show()
