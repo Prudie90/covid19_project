@@ -1,0 +1,17 @@
+import pandas as pd
+
+try:
+    df = pd.read_csv("metadata.csv", low_memory=False)
+    print("✅ Data loaded successfully")
+except FileNotFoundError:
+    print("❌ metadata.csv not found!")
+
+print(df.head())
+
+print("Shape:", df.shape)
+
+print(df.info())
+
+print(df.isnull().sum())
+
+print(df.describe())
